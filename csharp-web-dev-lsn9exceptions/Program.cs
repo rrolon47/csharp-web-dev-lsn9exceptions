@@ -16,14 +16,28 @@ namespace csharp_web_dev_lsn9exceptions
             return x / y;
         }
 
-        //static int CheckFileExtension(string fileName)
-        //{
-            // Write your code here!
-            //If a student’s submitted file ends in .cs, they get 1 point.If a student’s 
-            //    submitted file doesn’t end in .cs, they get 0 points.If the file submitted 
-            //    is null or an empty string, an exception should be thrown. What kind of exception is up to you!
-            //return integer representing the number of points a student receives for properly submitting a file in C# 
-        //}
+        static int CheckFileExtension(string fileName)
+        {
+            int point = 0;
+           
+
+            if (String.IsNullOrEmpty(fileName))
+            {
+                throw new ArgumentNullException("File is null or empty.");
+            }
+            else
+            { 
+                string[] file = fileName.Split(".");
+                string fileType = file[1];
+                if (fileType.Equals("cs"))
+                {
+                    point++;
+                }
+            }
+           
+
+            return point;
+        }
 
 
         static void Main(string[] args)
@@ -51,7 +65,18 @@ namespace csharp_web_dev_lsn9exceptions
             students.Add("Elizabeth", "MyCode.cs");
             students.Add("Stefanie", "CoolProgram.cs");
 
-
+            try
+            {
+                foreach(KeyValuePair<string, string> student in students)
+                {
+                    Console.WriteLine($"student: {student.Key} file: {student.Value} point:{CheckFileExtension(student.Value)}");
+                }
             }
+            catch (ArgumentException)
+            {
+                Console.WriteLine("Entry is null or empty.");
+            }
+
+        }
     }
 }
