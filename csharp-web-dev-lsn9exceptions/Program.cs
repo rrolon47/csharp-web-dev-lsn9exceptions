@@ -65,17 +65,19 @@ namespace csharp_web_dev_lsn9exceptions
             students.Add("Elizabeth", "MyCode.cs");
             students.Add("Stefanie", "CoolProgram.cs");
 
-            try
-            {
-                foreach(KeyValuePair<string, string> student in students)
+           
+            foreach(KeyValuePair<string, string> student in students)
+            { 
+                try
                 {
                     Console.WriteLine($"student: {student.Key} file: {student.Value} point:{CheckFileExtension(student.Value)}");
+                } 
+                catch (ArgumentException)
+                {
+                Console.WriteLine("Entry is null or empty.");
                 }
             }
-            catch (ArgumentException)
-            {
-                Console.WriteLine("Entry is null or empty.");
-            }
+           
 
         }
     }
